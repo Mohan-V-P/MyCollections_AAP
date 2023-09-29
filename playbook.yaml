@@ -1,0 +1,4 @@
+---
+- name: running a role with collection
+  roles:
+    -role: 
