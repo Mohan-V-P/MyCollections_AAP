@@ -1,0 +1,21 @@
+---
+- name: "Installation of {{package_name}} package"
+  yum:
+    name: "{{package_name}}"
+    state: "{{package_state}}"
+
+- name: Create or Update Index File
+  template:
+    src: index.html.j2
+    dest: "{{root_directory}}/index.html"
+
+- name: Create or Update New Page File
+  copy:
+    src: content.html
+    dest: "{{root_directory}}/content.html"
+  notify:
+    - service_restart
+    - Verify the index page
+    - Verify the content Page
+    - debug_index_page
+    - debug_content_page

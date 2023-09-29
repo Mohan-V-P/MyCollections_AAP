@@ -1,0 +1,27 @@
+---
+- name: service_restart
+  service:
+    name: "{{package_name}}"
+    state: started
+
+- name: Verify the index page
+  uri:
+    url: "{{root_url}}/index.html"
+    return_content: yes
+  register: index_page
+  notify: debug_index_page
+
+- name: Verify the content Page
+  uri:
+    url: "{{root_url}}/content.html"
+    return_content: yes
+  register: content_page
+  notify: devug_content_page
+
+- name: debug_index_page
+  debug:
+    var: index_page
+
+- name: debug_content_page
+  debug:
+    var: content_page
